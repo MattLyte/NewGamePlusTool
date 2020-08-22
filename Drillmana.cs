@@ -13,7 +13,7 @@ namespace Drillmana
 	public class DrillPlayer : ModPlayer
 	{
 		Mod Alchemist => ModLoader.GetMod("AlchemistNPC");
-		public int S = (int)Main.worldSurface;
+		public int S = (int)Main.worldSurface;//Cap1-4 record max depth for feasible use at a particular point of boss progression
 		public int Cap1 = (int)((Main.rockLayer - Main.worldSurface) * 0.6);
 		public int Cap2 = (int)(((Main.maxTilesY - Main.maxTilesY * 0.17 - Main.worldSurface) - (Main.rockLayer - Main.worldSurface)) * 0.1 + (Main.rockLayer - Main.worldSurface));
 		public int Cap3 = (int)(((Main.maxTilesY - Main.maxTilesY * 0.17 - Main.worldSurface) - (Main.rockLayer - Main.worldSurface)) * 0.33 + (Main.rockLayer - Main.worldSurface));
@@ -23,7 +23,7 @@ namespace Drillmana
 		public bool p1 = false;//tracks movement disable
 		public bool p2 = false;//tracks drill disable
 		public float D = 0f;//depth in tiles relative to surface
-		public float C = 0f;//mana drain, ticks 3 times per second
+		public float C = 0f;//mana drain(cost), ticks 3 times per second
 		public override void PreUpdate()
 		{
 			if (p2 == true)//if player stopped using drill
@@ -49,7 +49,7 @@ namespace Drillmana
 			else if (NPC.downedPlantBoss == false && player.HeldItem.type == ItemID.LaserDrill && player.controlUseItem && p1 == false && p2 == false && player.altFunctionUse != 2 && player.HeldItem.GetGlobalItem<DrillItem>().H == false)//drain
 			{
 				t++;
-				if (t >= 20)//cost ticks 3x per second
+				if (t >= 20)
 				{
 					D = (player.position.Y/16 - S);
 					if (D < 0)//scale cost from 5 at surface to 2 at pos.Y 0
@@ -143,7 +143,7 @@ namespace Drillmana
 					D = (player.position.Y/16 - S);
 					if (D < 0)
 					{
-						mult = 1.2f * (1 + D / (S + 1));
+						mult = 1.2f * (1 + (D / (S + 1)));
 					}
 					else if (D > Cap4 * 0.8f)
 					{
@@ -171,7 +171,7 @@ namespace Drillmana
 					D = (player.position.Y/16 - S);
 					if (D < 0)
 					{
-						mult = 2.7f * (1 + D / (S + 1));
+						mult = 2.7f * (1 + (D / (S + 1)));
 					}
 					else if (D > Cap3 * 0.7f)
 					{
@@ -195,7 +195,7 @@ namespace Drillmana
 					D = (player.position.Y/16 - S);
 					if (D < 0)
 					{
-						mult = 4.4f * (1 + D / (S + 1));
+						mult = 4.4f * (1 + (D / (S + 1)));
 					}
 					else if (D > Cap2 * 0.55f)
 					{
@@ -215,7 +215,7 @@ namespace Drillmana
 					D = (player.position.Y/16 - S);
 					if (D < 0)
 					{
-						mult = 5.2f * (1 + D / (S + 1));
+						mult = 5.2f * (1 + (D / (S + 1)));
 					}
 					else
 					{

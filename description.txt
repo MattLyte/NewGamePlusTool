@@ -1,1 +1,1 @@
-Drillmana is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Simulates a scaling mana cost on the Laser Drill for use as a New Game + bonus tool. Also adds a right click that swaps it into an axe. Cost increases the closer you get to the underworld, and decreases when you kill bosses(Eye of Cthulu, Skeletron, Wall of Flesh, and disables completely upon defeating Plantera.)
